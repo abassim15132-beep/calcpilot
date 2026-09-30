@@ -1,1 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalcPilot - Free Online Calculators</title>
 
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        header {
+            background: #111827;
+            color: white;
+            padding: 25px 15px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+            font-size: 32px;
+        }
+
+        header p {
+            margin: 0;
+            color: #d1d5db;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .result {
+            margin-top: 12px;
+            font-weight: bold;
+            min-height: 22px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>CalcPilot</h1>
+    <p>Free Online Calculators & Tools</p>
+</header>
+
+<div class="container">
+
+    <h2>Free Calculators</h2>
+
+    <div class="grid">
+
+        <!-- Percentage Calculator -->
+        <div class="card">
+            <h2>Percentage Calculator</h2>
+
+            <input id="percent" type="number" placeholder="Percentage">
+            <input id="number" type="number" placeholder="Number">
+
+            <button onclick="calculatePercentage()">
+                Calculate
+            </button>
+
+            <div id="percentageResult" class="result"></div>
+        </div>
+
+        <!-- Age Calculator -->
+        <div class="card">
+            <h2>Age Calculator</h2>
+
+            <input id="birthDate" type="date">
+
+            <button onclick="calculateAge()">
+                Calculate Age
+            </button>
+
+            <div id="ageResult" class="result"></div>
+        </div>
+
+        <!-- GPA Calculator -->
+        <div class="card">
+            <h2>GPA Calculator</h2>
+
+            <input id="grade1" type="number" placeholder="Grade 1">
+            <input id="grade2" type="number" placeholder="Grade 2">
+            <input id="grade3" type="number" placeholder="Grade 3">
+
+            <button onclick="calculateGPA()">
+                Calculate GPA
+            </button>
+
+            <div id="gpaResult" class="result"></div>
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    © 2026 CalcPilot. All rights reserved.
+</footer>
+
+<script>
+
+function calculatePercentage() {
+
+    let percentage =
+        parseFloat(document.getElementById("percent").value);
+
+    let number =
+        parseFloat(document.getElementById("number").value);
+
+    if (isNaN(percentage) || isNaN(number)) {
+        document.getElementById("percentageResult").innerText =
+            "Please enter both numbers.";
+        return;
+    }
+
+    let result = (percentage / 100) * number;
+
+    document.getElementById("percentageResult").innerText =
+        percentage + "% of " + number + " = " + result;
+}
+
+
+function calculateAge() {
+
+    let birthDate =
+        new Date(document.getElementById("birthDate").value);
+
+    if (isNaN(birthDate.getTime())) {
+        document.getElementById("ageResult").innerText =
+            "Please select your birth date.";
+        return;
+    }
+
+    let today = new Date();
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    let month = today.getMonth() - birthDate.getMonth();
+
+    if (
+        month < 0 ||
+        (month === 0 && today.getDate() < birthDate.getDate())
+    ) {
+        age--;
+    }
+
+    document.getElementById("ageResult").innerText =
+        "Your age is " + age + " years.";
+}
+
+
+function calculateGPA() {
+
+    let g1 = parseFloat(document.getElementById("grade1").value);
+    let g2 = parseFloat(document.getElementById("grade2").value);
+    let g3 = parseFloat(document.getElementById("grade3").value);
+
+    if (isNaN(g1) || isNaN(g2) || isNaN(g3)) {
+        document.getElementById("gpaResult").innerText =
+            "Please enter all three grades.";
+        return;
+    }
+
+    let gpa = (g1 + g2 + g3) / 3;
+
+    document.getElementById("gpaResult").innerText =
+        "Average GPA: " + gpa.toFixed(2);
+}
+
+</script>
+
+</body>
+</html>
